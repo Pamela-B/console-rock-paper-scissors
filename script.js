@@ -19,9 +19,11 @@ function playRound(humanChoice,computerChoice) {
                 switch (computerChoice) {
                     case "paper":
                         roundWinnerText.textContent = "You lose this round! Paper beats Rock";
+                        computerScoreText.textContent = `Computer: ${computerScore + 1} points`;
                         return computerScore += 1;
                     case "scissors":
                         roundWinnerText.textContent = "You win this round! Rock beats Scissors";
+                        playerScoreText.textContent = `You: ${humanScore + 1} points`;
                         return humanScore += 1;
                 }
                 break;
@@ -30,9 +32,11 @@ function playRound(humanChoice,computerChoice) {
                 switch (computerChoice) {
                     case "rock":
                         roundWinnerText.textContent = "You win this round! Paper beats Rock";
+                        playerScoreText.textContent = `You: ${humanScore + 1} points`;
                         return humanScore += 1;
                     case "scissors":
                         roundWinnerText.textContent = "You lose this round! Scissors beat Paper";
+                        computerScoreText.textContent = `Computer: ${computerScore + 1} points`;
                         return computerScore += 1;
                 }
                 break;
@@ -41,9 +45,11 @@ function playRound(humanChoice,computerChoice) {
                 switch (computerChoice) {
                     case "paper":
                         roundWinnerText.textContent = "You win this round! Scissors beat Paper";
+                        playerScoreText.textContent = `You: ${humanScore + 1} points`;
                         return humanScore += 1;
                     case "rock":
                         roundWinnerText.textContent = "You lose this round! Rock beats Scissors";
+                        computerScoreText.textContent = `Computer: ${computerScore + 1} points`;
                         return computerScore += 1;
                 };
                 break;
@@ -62,15 +68,17 @@ function checkScoreForWinner(humanScore,computerScore) {
         restartDiv.appendChild(restartButton);
         choicesDiv.style.display = "none";
     };
-}
+};
 
 function resetGame() {
     humanScore = 0;
     computerScore = 0;
-    playerScoreText.textContent = `You: ${humanScore} points`
-    computerScoreText.textContent = `Computer: ${computerScore} points`
+    playerScoreText.textContent = `You: ${humanScore} points`;
+    computerScoreText.textContent = `Computer: ${computerScore} points`;
     restartDiv.removeChild(restartButton);
     choicesDiv.style.display = "block";
+    roundWinnerText.textContent = "";
+    gameWinnerText.textContent = "";
 };
 
 let humanScore = 0;
@@ -93,9 +101,10 @@ const options = document.querySelectorAll("#choices > button");
 options.forEach((option) => {
     option.addEventListener("click", () => {
        playRound(option.id,getComputerChoice());
-       playerScoreText.textContent = `You: ${humanScore} points`
-       computerScoreText.textContent = `Computer: ${computerScore} points`
        checkScoreForWinner(humanScore,computerScore);
     });
 });
 
+
+//need to remove game-winner element whilst the game is ongoing
+//change textcontent of scores only if they win game
