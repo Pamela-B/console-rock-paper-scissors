@@ -9,7 +9,6 @@ function getComputerChoice(){
     };
 };
 
-
 function playRound(humanChoice,computerChoice) {
     if (humanChoice === computerChoice) {
         roundWinnerText.textContent = "You both chose the same!"
@@ -60,12 +59,12 @@ function playRound(humanChoice,computerChoice) {
 function checkScoreForWinner(humanScore,computerScore) {
     if (humanScore === 5) {
         gameWinnerText.textContent = "You win the game!";
-        restartDiv.appendChild(restartButton);
+        restartButton.style.display = "block";
         choicesDiv.style.display = "none";
     };
     if (computerScore === 5) {
         gameWinnerText.textContent = "You lose the game!";
-        restartDiv.appendChild(restartButton);
+        restartButton.style.display = "block";
         choicesDiv.style.display = "none";
     };
 };
@@ -73,12 +72,14 @@ function checkScoreForWinner(humanScore,computerScore) {
 function resetGame() {
     humanScore = 0;
     computerScore = 0;
+
     playerScoreText.textContent = `You: ${humanScore} points`;
     computerScoreText.textContent = `Computer: ${computerScore} points`;
-    restartDiv.removeChild(restartButton);
-    choicesDiv.style.display = "block";
     roundWinnerText.textContent = "";
     gameWinnerText.textContent = "";
+
+    restartButton.style.display = "none";
+    choicesDiv.style.display = "block";
 };
 
 let humanScore = 0;
@@ -88,11 +89,10 @@ const roundWinnerText = document.querySelector("#round-winner");
 const gameWinnerText = document.querySelector("#game-winner");
 const playerScoreText = document.querySelector("#player-score");
 const computerScoreText = document.querySelector("#computer-score");
-const restartDiv = document.querySelector("#restart");
 const choicesDiv = document.querySelector("#choices");
+const restartButton = document.querySelector("#restart");
 
-const restartButton = document.createElement("button");
-restartButton.textContent = "Restart game";
+
 restartButton.addEventListener("click", () => {
     resetGame();
 });
@@ -104,7 +104,3 @@ options.forEach((option) => {
        checkScoreForWinner(humanScore,computerScore);
     });
 });
-
-
-//need to remove game-winner element whilst the game is ongoing
-//change textcontent of scores only if they win game
